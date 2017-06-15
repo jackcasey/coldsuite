@@ -1,0 +1,13 @@
+AllCops:
+  TargetRubyVersion: 2.3
+
+# Github's diff view is 120 chars wide
+# Limit lines to that length
+Metrics/LineLength:
+  Max: 120
+
+Style/GlobalVars:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false

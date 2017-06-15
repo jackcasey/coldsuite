@@ -1,0 +1,20 @@
+[
+  {
+    "category": "Bitcoin [BTC]",
+    "name": "bitaddress.org",
+    "src": "https://github.com/pointbiz/bitaddress.org/raw/v3.3.0/bitaddress.org.html",
+    "folder": "btc/bitaddress/"
+  },
+  {
+    "category": "Ethereum ETH",
+    "name": "MyEtherWallet",
+    "src": "https://github.com/kvhnuke/etherwallet/releases/download/v3.9.0/dist-v3.9.0.zip",
+    "folder": "eth/mew/"
+  },
+  {
+    "category": "Misc Tools",
+    "name": "Ian Coleman's Mnemonic Code Converter",
+    "src": "https://github.com/iancoleman/bip39/raw/0.1.0/bip39-standalone.html",
+    "folder": "misc/bip39/"
+  }
+]
