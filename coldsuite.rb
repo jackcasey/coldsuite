@@ -43,38 +43,48 @@ def download_tools
 end
 
 def download_tool(tool)
-  file = tool[:src].split('/')[-1]
   fullpath = File.join($tool_folder, tool[:folder])
   puts " • Installing #{tool[:name]} to '#{fullpath}'"
-  FileUtils.mkdir_p(fullpath)
+  tool[:src].each { |src| download_file(src, fullpath) }
+end
 
+def download_file(src, dest)
+  filename = src.split('/')[-1]
+  FileUtils.mkdir_p(dest)
   # Delete the downloaded file if it exists and we aren't caching
-  File.unlink(file) if !File.exist?(file) && !$cache_downloads
-
-  unless File.exist?(file)
-    puts "   • Downloading #{tool[:src]}"
+  File.unlink(filename) if File.exist?(filename) && !$cache_downloads
+  unless File.exist?(filename)
+    puts "   • Downloading #{src}"
     # TODO: Check MD5 hashes here that are entered into tools.json
-    # TODO: Make this portable
-    `wget -q --show-progress #{tool[:src]}`
+    # TODO: Make this more portable
+    `curl --location -O -# #{src}`
   end
 
   # Copy or unzip the file to the destination
-  if tool[:src].end_with?('.zip')
+  if src.end_with?('.zip')
     # TODO: Make this portable
-    `unzip -d #{fullpath} #{file}`
+    `unzip -d #{dest} #{filename}`
   else
-    FileUtils.copy(file, fullpath)
+    FileUtils.copy(filename, dest)
   end
+  # Delete the downloaded file if it exists and we aren't caching
+  File.unlink(filename) if File.exist?(filename) && !$cache_downloads
+end
+
+def get_index_file_for_tool(tool)
+  return tool[:index] if tool[:index]
+  raise "Ambiguous index file for '#{tool[:name]}'" unless tool[:src].length == 1
+  return 'index.html' if tool[:src].first.end_with?('.zip')
+  tool[:src].first.split('/')[-1]
 end
 
 def tool_links
-  $TOOLS.map do |tool|
-    tool_file = if tool[:src].end_with?('.zip')
-                  'index.html'
-                else
-                  tool[:src].split('/')[-1]
-                end
-    "<hr /><h2><a href='#{File.join(tool[:folder], tool_file)}'>#{tool[:name]}</a></h2>"
+  $TOOLS.group_by { |x| x[:category] }.map do |category, tools|
+    ["<h2>#{category}</h2>"] +
+      tools.map do |tool|
+        index = get_index_file_for_tool(tool)
+        "<h3><a href='#{File.join(tool[:folder], index)}'>#{tool[:name]}</a></h3>"
+      end
   end.join("\n")
 end
 
@@ -107,7 +117,7 @@ def print_header
                 ____        _      _   ____          _  _
                / ___| ___  | |  __| | / ___|  _   _ (_)| |_  ___
               | |    / _ \ | | / _` | \___ \ | | | || || __|/ _ \
-              | |___| (_) || || (_| |  ___) || |_| || || |_|  __/
+              | |___( (_) )| |( (_| |  ___) )| |_| || || |_(  __/
                \____|\___/ |_| \__,_| |____/  \__,_||_| \__|\___|
 
              Curated cold storage and offline cryptocurrency tools

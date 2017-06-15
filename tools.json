@@ -2,19 +2,27 @@
   {
     "category": "Bitcoin [BTC]",
     "name": "bitaddress.org",
-    "src": "https://github.com/pointbiz/bitaddress.org/raw/v3.3.0/bitaddress.org.html",
+    "src": ["https://raw.githubusercontent.com/pointbiz/bitaddress.org/v3.3.0/bitaddress.org.html"],
     "folder": "btc/bitaddress/"
   },
   {
-    "category": "Ethereum ETH",
+    "category": "Ethereum [ETH]",
     "name": "MyEtherWallet",
-    "src": "https://github.com/kvhnuke/etherwallet/releases/download/v3.9.0/dist-v3.9.0.zip",
+    "src": ["https://github.com/kvhnuke/etherwallet/releases/download/v3.9.0/dist-v3.9.0.zip"],
     "folder": "eth/mew/"
   },
   {
-    "category": "Misc Tools",
+    "category": "Miscelaneous",
     "name": "Ian Coleman's Mnemonic Code Converter",
-    "src": "https://github.com/iancoleman/bip39/raw/0.1.0/bip39-standalone.html",
+    "src": ["https://raw.githubusercontent.com/iancoleman/bip39/0.1.0/bip39-standalone.html"],
+    "folder": "misc/bip39/"
+  },
+  {
+    "category": "Ethereum [ETH]",
+    "name": "ConsenSys icebox",
+    "src": ["https://raw.githubusercontent.com/ConsenSys/icebox/v0.3.0/dist/icebox.html",
+            "https://raw.githubusercontent.com/ConsenSys/icebox/v0.3.0/dist/lightwallet.min.js"],
+    "index": "icebox.html",
     "folder": "misc/bip39/"
   }
 ]
