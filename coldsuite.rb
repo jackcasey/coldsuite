@@ -5,7 +5,7 @@
 require 'fileutils'
 require 'json'
 
-$cache_downloads = true # Set this to false to always download everything each time
+$cache_downloads = false # Set this to true to speed up development etc
 $tool_folder = './tools'
 $index_template = File.read('./index_template.html')
 $TOOLS = JSON.parse(File.read('./tools.json'), symbolize_names: true)
